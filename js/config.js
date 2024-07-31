@@ -9,7 +9,7 @@ const CONFIG = {
   commands: [{
       name: 'Kagi',
       key: '*',
-      url: 'https://kagi.com',
+      url: 'https://kagi.com/search',
       search: '/?q={}'
     },
     {
