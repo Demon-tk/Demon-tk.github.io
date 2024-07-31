@@ -95,8 +95,7 @@ class DuckDuckGoInfluencer extends Influencer {
     if (!query) return Promise.resolve([]);
 
     return new Promise(resolve => {
-      const endpoint = 'https://duckduckgo.com/ac/';
-      const callback = 'autocompleteCallback';
+      const endpoint = 'https://kagi.com/api/autosuggest';
 
       window[callback] = res => {
         const suggestions = res
@@ -107,7 +106,7 @@ class DuckDuckGoInfluencer extends Influencer {
         resolve(this._addSearchPrefix(suggestions, rawQuery));
       };
 
-      $.jsonp(`${endpoint}?callback=${callback}&q=${query}`);
+      $.jsonp(`${endpoint}?q=${query}`);
     });
   }
 }
