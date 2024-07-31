@@ -96,20 +96,23 @@ class DuckDuckGoInfluencer extends Influencer {
 
     return new Promise(resolve => {
       const endpoint = 'https://kagi.com/api/autosuggest';
+      const url = `${endpoint}?q=${encodeURIComponent(query)}`;
 
-      window[callback] = res => {
-        const suggestions = res
-          .map(i => i.phrase)
-          .filter(s => !$.ieq(s, query))
-          .slice(0, this._limit);
+      fetch(url)
+        .then(response => response.json())
+        .then(res => {
+          const suggestions = res.suggestions // Assuming the response contains a `suggestions` array
+            .map(i => i.phrase) // If the structure differs, adjust accordingly
+            .filter(s => !$.ieq(s, query))
+            .slice(0, this._limit);
 
-        resolve(this._addSearchPrefix(suggestions, rawQuery));
-      };
-
-      $.jsonp(`${endpoint}?q=${query}`);
+          resolve(this._addSearchPrefix(suggestions, rawQuery));
+        })
+        .catch(() => resolve([])); // Handle errors gracefully
     });
   }
 }
+
 
 class HistoryInfluencer extends Influencer {
   constructor() {
