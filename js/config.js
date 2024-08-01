@@ -204,7 +204,7 @@ const CONFIG = {
     {
       category: 'Other',
       name: 'Summarizer',
-      key: 'Un',
+      key: 'un',
       url: 'https://kagi.com/summarizer/index.html',
       color: '#202b38',
       icon: 'summarizer',
